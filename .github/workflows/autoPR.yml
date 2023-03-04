@@ -1,0 +1,26 @@
+name: pull request
+on: 
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+      
+jobs:
+  pull-request:
+    runs-on: macos-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Set-up NodeJS
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - name: Install npm
+        run: npm ci
+      - name: lint
+        run: npm run lint
+      - name: Build project
+        run: npm build
+      - name: test
+        run: npm run test 
+
